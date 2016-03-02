@@ -87,16 +87,12 @@ const Layouts_demo = React.createClass({
                 <Col style={{border: '1px solid green'}} span="1">col-1</Col>
               </Row>
               <br/>
-              <hr/>
-              <br/>
               <Row type="flex" justify="start">
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
               </Row>
-              <br/>
-              <hr/>
               <br/>
               <Row type="flex" justify="center">
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
@@ -105,8 +101,6 @@ const Layouts_demo = React.createClass({
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
               </Row>
               <br/>
-              <hr/>
-              <br/>
               <Row type="flex" justify="end">
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
@@ -114,16 +108,12 @@ const Layouts_demo = React.createClass({
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
               </Row>
               <br/>
-              <hr/>
-              <br/>
               <Row type="flex" justify="space-between">
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>
               </Row>
-              <br/>
-              <hr/>
               <br/>
               <Row type="flex" justify="space-around">
                 <Col style={{lineHeight: '50px',border: '1px solid green'}} span="4">col-4</Col>

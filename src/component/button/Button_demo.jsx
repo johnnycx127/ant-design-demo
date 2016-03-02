@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Form, Input, Button, message, Icon} from 'antd';
+import {Button, Icon} from 'antd';
 const ButtonGroup = Button.Group;
 
 const Button_demo = React.createClass({

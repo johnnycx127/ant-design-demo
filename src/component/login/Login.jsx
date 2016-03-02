@@ -45,7 +45,7 @@ const Login = React.createClass({
             /*label="密码："*/>
             <Input type="password" placeholder="请输入密码" id="password" name="password" onChange={this.setValue.bind(this, 'password')} value={formData.password}/>
           </FormItem>
-          <Button type="primary" className="login-button fill-width" htmlType="submit">登录</Button>
+          <Button type="primary" size="large" className="login-button fill-width" htmlType="submit">登录</Button>
         </Form>
       </div>
     </div>);
