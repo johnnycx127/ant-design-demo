@@ -5,16 +5,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Checkbox} from 'antd';
 
+const CheckboxGroup = Checkbox.Group;
+
 const Checkbox_demo = React.createClass({
   handleChange: function () {
     console.log(`checked = ${e.target.checked}`);
   },
   render () {
     return (
-      <label>
-        <Checkbox defaultChecked={false} onChange={this.handleChange} />
-        Checkbox
-      </label>
+      <div>
+
+        <label>
+          <Checkbox defaultChecked={false} onChange={this.handleChange}/>
+          Checkbox
+        </label>
+        <br/>
+        <br/>
+        <hr/>
+        <br/>
+
+        <div>
+          <CheckboxGroup options={['苹果', '小米', '华为']} defaultValue={['苹果']} />
+
+        </div>
+
+
+      </div>
+
     );
   }
 });
