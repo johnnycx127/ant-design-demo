@@ -30,7 +30,7 @@ import {Form, Input, Button, message} from 'antd';
 
 class ${NAME} extends React.Component{
   getInitialState () {
-    return ({example: example});
+    return ({example: 'example'});
   }
   handleClick() {
 
@@ -51,10 +51,10 @@ export default ${NAME};
 
 #### 3. 创建Form表单组件时，无法获取值。
 
-(在ant design 新版本中)在创建Form表单组件时，无法获取输入的值，这时可能会报这样的错：`TypeError: Cannot read property getFieldProps of undefined`
+(在ant design 新版本中)在创建Form表单组件时，无法获取输入的值，这时可能会报这样的错：`TypeError: Cannot read property getFieldProps of undefined`  
 原因是缺少`getFieldProps`属性,需要用From.create()包装下，[官方API说明](http://ant.design/components/form/#form): 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可,
-例如：`Demo = Form.create()(Demo);`(Demo就是你自定义的组件名字)
-**注意**: 如果你的组件是这样创建的 `const Demo = React.createClass({......})`,就无法再包装了，因为ES6语法规定，const定义的变量不能够更改也不能被重定义。
+例如：`Demo = Form.create()(Demo);`(Demo就是你自定义的组件名字)  
+**注意**: 如果你的组件是这样创建的 `const Demo = React.createClass({......})`,就无法再包装了，因为ES6语法规定，const定义的变量不能够更改也不能被重定义。  
 你可以用 `let` 创建你的组件，这样就没问题了。或者ES6的新语法，`class Demo extends React.Component{......}`，但是这时你组件上的事件可能无法正常使用，例如
 找不到某些属性，这时，改变this的指向就行了onSubmit={this.handleSubmit.`bind(this)`}
  
