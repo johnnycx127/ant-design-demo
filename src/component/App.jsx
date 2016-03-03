@@ -9,11 +9,13 @@ import Checkbox from '../component/checkbox/Checkbox_demo.jsx';
 import Checkbox2 from '../component/checkbox/Checkbox_demo2.jsx';
 import Table from '../component/table/Table_demo.jsx';
 import Input from '../component/form/Input_demo.jsx';
-import InputInline from '../component/form/Input_inline2.jsx';
+import InputInline from '../component/form/Input_inline.jsx';
 import Radio from '../component/radio/Radio_demo.jsx';
 import Switch from '../component/switch/Switch_demo.jsx';
 import Carousel from '../component/carousel/Carousel_demo.jsx';
 import Modal from '../component/modal/Modal_demo.jsx';
+import Pagination from '../component/pagination/Pagination_demo.jsx'
+
 const App = React.createClass({
   render() {
     return (
@@ -22,6 +24,8 @@ const App = React.createClass({
         <Container>
           <Carousel />
         </Container>
+        <br/>
+        <Pagination />
         <br/>
         <Modal />
         <br/>

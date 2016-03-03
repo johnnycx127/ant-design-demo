@@ -4,6 +4,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Carousel} from 'antd';
+import img1 from '../../common/img/captain.jpg';
+import img2 from '../../common/img/captain2.jpg';
+import img3 from '../../common/img/juren.jpg';
+
 
 const Carousel_demo = React.createClass({
     handleChange(a,b,c) {
@@ -12,10 +16,9 @@ const Carousel_demo = React.createClass({
     render () {
         return (
             <Carousel style={{backgroundColor: 'green'}} onChange={this.handleChange}>
-              <div><h3>1</h3></div>
-              <div><h3>2</h3></div>
-              <div><h3>3</h3></div>
-              <div><h3>4</h3></div>
+              <div><h3 style={{background: "#011F1A no-repeat url("+img1+") center center",backgroundSize: 'contain',height: '400px',display: 'block'}} ></h3></div>
+              <div><h3 style={{background: "#2F3350 no-repeat url("+img2+") center center",backgroundSize: 'contain',height: '400px',display: 'block'}} ></h3></div>
+              <div><h3 style={{background: "black no-repeat url("+img3+") center center",backgroundSize: 'contain',height: '400px',display: 'block'}} ></h3></div>
             </Carousel>
         );
     }

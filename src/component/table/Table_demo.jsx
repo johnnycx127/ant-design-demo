@@ -3,19 +3,17 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Table} from 'antd';
+import {Table,Pagination} from 'antd';
 
-const dataSource = [{
-  key: '1',
-  name: '胡彦斌',
-  age: 32,
-  address: '西湖区湖底公园1号'
-}, {
-  key: '2',
-  name: '胡彦祖',
-  age: 42,
-  address: '西湖区湖底公园1号'
-}];
+const dataSource = [];
+for (let i = 0; i < 46; i++) {
+  dataSource.push({
+    key: i,
+    name: `李大嘴${i}`,
+    age: 32,
+    address: `西湖区湖底公园${i}号`
+  });
+}
 
 const columns = [{
   title: '姓名',
@@ -35,11 +33,40 @@ const columns = [{
 }];
 
 
+const rowSelection = {
+  onChange(selectedRowKeys, selectedRows) {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  },
+  onSelect(record, selected, selectedRows) {
+    console.log(record, selected, selectedRows);
+  },
+  onSelectAll(selected, selectedRows, changeRows) {
+    console.log(selected, selectedRows, changeRows);
+  }
+};
+const pagination = {
+  total: dataSource.length,
+  current: 1,
+  showSizeChanger: true,
+  onShowSizeChange(current, pageSize) {
+    console.log('Current: ', current, '; PageSize: ', pageSize);
+  },
+  onChange(current) {
+    console.log('Current: ', current);
+  }
+};
 
+function onShowSizeChange(current, pageSize) {
+  console.log(current, pageSize);
+}
 const Table_demo = React.createClass({
     render () {
         return (
-          <Table dataSource={dataSource} columns={columns} />
+          <div style={{backgroundColor: '#fff',padding: '0 0 50px',borderTop: '5px solid green'}}>
+            <Table rowSelection={rowSelection} agination={pagination}  dataSource={dataSource} columns={columns} bordered/>
+
+          </div>
+
         );
     }
 });
