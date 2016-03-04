@@ -2,7 +2,6 @@
  * Created by zjp on 16-3-2.
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Checkbox, Button} from 'antd';
 
 const Checkbox_demo2 = React.createClass({

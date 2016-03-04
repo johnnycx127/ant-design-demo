@@ -2,7 +2,6 @@
  * Created by peach on 16-3-2.
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Checkbox} from 'antd';
 
 const CheckboxGroup = Checkbox.Group;

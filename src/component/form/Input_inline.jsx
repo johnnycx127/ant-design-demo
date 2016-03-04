@@ -2,7 +2,6 @@
  * Created by peach on 16-3-3.
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Form, Input, Button, Checkbox, message} from 'antd';
 
 const FormItem = Form.Item;
@@ -12,14 +11,19 @@ class Input_inline extends React.Component{
 
     handleSubmit(e) {
       e.preventDefault();//阻止默认行为：刷新
-      console.log('收到表单值：', this.props.form.getFieldsValue());
+
       var data = this.props.form.getFieldsValue();
-      message.info(JSON.stringify(data,function (k,v) {
+      var dataStr = JSON.stringify(data,function (k,v) {
         if(typeof v === 'undefined') {
           return '';
         }
         return v;
-      }));
+      });
+      console.log('收到表单值：', data);
+      alert(data);
+      alert(JSON.stringify(data));
+      alert(dataStr)
+      message.info(dataStr);
     }
 
     render () {

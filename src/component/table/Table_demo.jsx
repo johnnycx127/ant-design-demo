@@ -2,7 +2,6 @@
  * Created by zjp on 16-3-2.
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Table,Pagination} from 'antd';
 
 const dataSource = [];
@@ -59,7 +58,13 @@ const pagination = {
 function onShowSizeChange(current, pageSize) {
   console.log(current, pageSize);
 }
-const Table_demo = React.createClass({
+
+class Table_demo extends React.Component{
+    componentDidMount () {
+      for (let i = 1;i < 40; i++){
+
+      }
+    }
     render () {
         return (
           <div style={{backgroundColor: '#fff',padding: '0 0 50px',borderTop: '5px solid green'}}>
@@ -69,5 +74,5 @@ const Table_demo = React.createClass({
 
         );
     }
-});
+};
 export default Table_demo;

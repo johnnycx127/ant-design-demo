@@ -2,7 +2,6 @@
  * Created by peach on 16-3-3.
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Switch, Icon} from 'antd';
 
 const Switch_demo = React.createClass({

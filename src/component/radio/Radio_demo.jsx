@@ -2,7 +2,6 @@
  * Created by peach on 16-3-3.
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Radio} from 'antd';
 
 const RadioGroup = Radio.Group;

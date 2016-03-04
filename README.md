@@ -51,13 +51,42 @@ export default ${NAME};
 
 #### 3. 创建Form表单组件时，无法获取值。
 
-(在ant design 新版本中)在创建Form表单组件时，无法获取输入的值，这时可能会报这样的错：`TypeError: Cannot read property getFieldProps of undefined`  
-原因是缺少`getFieldProps`属性,需要用From.create()包装下，[官方API说明](http://ant.design/components/form/#form): 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可,
-例如：`Demo = Form.create()(Demo);`(Demo就是你自定义的组件名字)  
-**注意**: 如果你的组件是这样创建的 `const Demo = React.createClass({......})`,就无法再包装了，因为ES6语法规定，const定义的变量不能够更改也不能被重定义。  
+(在ant design 新版本中)在创建Form表单组件时，无法获取输入的值，这时可能会报这样的错：  
+`TypeError: Cannot read property getFieldProps of undefined`
+
+原因是缺少`getFieldProps`属性,需要用From.create()包装下，[官方API说明](http://ant.design/components/form/#form): 经 `Form.create()` 包装过的组件
+会自带 `this.props.form` 属性，直接传给 Form 即可,
+例如：`Demo = Form.create()(Demo);`(Demo就是你自定义的组件名字)
+
+**注意**: 如果你的组件是这样创建的 `const Demo = React.createClass({......})`,就无法再包装了，因为ES6语法规定，const定义的变量不能够更改也不能被重定义。
+
 你可以用 `let` 创建你的组件，这样就没问题了。或者ES6的新语法，`class Demo extends React.Component{......}`，但是这时你组件上的事件可能无法正常使用，例如
-找不到某些属性，这时，改变this的指向就行了onSubmit={this.handleSubmit.`bind(this)`}
- 
+找不到某些属性，这时，改变this的指向就行了: onSubmit={this.handleSubmit.`bind(this)`}
+
+另外，在使用 `var data = this.props.form.getFieldsValue();` 的时候，如果只是在控制台输出,没什么问题，如果你需要alert,或者传递值可能就有问题了：alert的结果是　｀[object Object]｀
+
+这时，意识到通过getFieldsValue()方法获取的是个Json对象，需要转换成字符串，于是　`JSON.stringify(data)`，但是，在无任何输入的情况下，结果　`{}`,在输入过一次的前提下没有问题，但是终究是有问题的。
+
+最后，在官网例子中找到解决办法：
+
+```javascript
+handleSubmit(e) {
+  e.preventDefault();//阻止默认行为：刷新
+
+  var data = this.props.form.getFieldsValue();
+  var dataStr = JSON.stringify(data,function (k,v) {
+    if(typeof v === 'undefined') {
+      return '';
+    }
+    return v;
+  });
+  console.log('收到表单值：', data);
+  alert(data);
+  alert(JSON.stringify(data));
+  alert(dataStr)
+  message.info(dataStr);
+}
+```
 
 
 ## Develop
