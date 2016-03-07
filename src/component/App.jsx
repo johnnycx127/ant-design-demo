@@ -14,7 +14,8 @@ import Radio from '../component/radio/Radio_demo.jsx';
 import Switch from '../component/switch/Switch_demo.jsx';
 import Carousel from '../component/carousel/Carousel_demo.jsx';
 import Modal from '../component/modal/Modal_demo.jsx';
-import Pagination from '../component/pagination/Pagination_demo.jsx'
+import Pagination from '../component/pagination/Pagination_demo.jsx';
+import AddDomElement from '../component/getDomElement/AddDomElement.jsx';
 
 const App = React.createClass({
   render() {
@@ -24,6 +25,8 @@ const App = React.createClass({
         <Container>
           <Carousel />
         </Container>
+        <br/>
+        <AddDomElement />
         <br/>
         <Pagination />
         <br/>
