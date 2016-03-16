@@ -38,12 +38,14 @@ const Login = React.createClass({
           <FormItem
             id="userName"
             /*label="账户："*/>
-            <Input placeholder="请输入账户名" id="userName" name="userName" onChange={this.setValue.bind(this, 'userName')} value={formData.userName}/>
+            <Input placeholder="请输入账户名" id="userName" name="userName" onChange={this.setValue.bind(this, 'userName')}
+                   value={formData.userName}/>
           </FormItem>
           <FormItem
             id="password"
             /*label="密码："*/>
-            <Input type="password" placeholder="请输入密码" id="password" name="password" onChange={this.setValue.bind(this, 'password')} value={formData.password}/>
+            <Input type="password" placeholder="请输入密码" id="password" name="password"
+                   onChange={this.setValue.bind(this, 'password')} value={formData.password}/>
           </FormItem>
           <Button type="primary" size="large" className="login-button fill-width" htmlType="submit">登录</Button>
         </Form>
