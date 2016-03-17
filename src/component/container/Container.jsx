@@ -2,7 +2,7 @@ import './style.css';
 import React from 'react';
 
 import DustbinContainer from '../dnd-dustbin/Container.jsx';
-
+import ValidatorDemo from '../validation/Validation.jsx'
 
 const Container = React.createClass({
   render() {
@@ -10,6 +10,7 @@ const Container = React.createClass({
       <div className="admin-container">
         {this.props.children}
         <DustbinContainer />
+        <ValidatorDemo/>
       </div>
     );
   }
