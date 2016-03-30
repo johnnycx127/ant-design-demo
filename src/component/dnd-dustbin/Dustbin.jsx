@@ -22,7 +22,7 @@ const style = {
 const tustbinSpec = {
   drop(props, monitor, component) {
     const item = monitor.getItem();
-    console.log(item.id);
+    console.log(item.name);
     return {name: 'Dustbin'};
   }
 };
