@@ -12,7 +12,6 @@ const Container = React.createClass({
       <div className="admin-container">
         {this.props.children}
         <SortCard/>
-        <AddList />
       </div>
     );
   }

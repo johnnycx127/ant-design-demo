@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import {Form, Input, Button, message} from 'antd';
+import { Row, Col,Button,Icon} from 'antd';
 import { DragSource, DropTarget } from 'react-dnd';
 
 import ItemTypes from './ItemTypes.jsx';
@@ -11,12 +11,12 @@ import ItemTypes from './ItemTypes.jsx';
 
 //DragSource 参数
 const dragType = ItemTypes.card;
-const dragSpec  = {
+const dragSpec = {
   beginDrag(props, monitor, component) {
     return {
       name: props.name,
       index: props.index,
-      id:props.id
+      id: props.id
     };
   }
 };
@@ -29,7 +29,7 @@ function dragCollect(connect, monitor) {
 
 //DropTarget 参数
 const dropType = ItemTypes.card;
-const dropSpec  = {
+const dropSpec = {
   hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
@@ -50,25 +50,35 @@ const dropSpec  = {
     monitor.getItem().index = hoverIndex;
   }
 };
-function dropCollect(connect, monitor){
+function dropCollect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget()
   }
 }
 
 
-
 class Card extends React.Component {
   render() {
-
-    const {text,isDragging,connectDragSource,connectDropTarget} = this.props;
+    const {name,normName,price,pic,isDragging,connectDragSource,connectDropTarget} = this.props;
     const opacity = isDragging ? 0 : 1;
-
+    console.log(pic)
     return connectDragSource(connectDropTarget(
-      <div style={{opacity}}>
-        {text}
+      <div className="card" style={{opacity}}>
+        <Row type="flex" className="card-content">
+          <Col span="9" className="card-left">
+            <img src={pic} alt="菜品图片"/>
+          </Col>
+          <Col span="15" className="card-right">
+            <h2 className="dish-name">{name} <small>({normName})</small></h2>
+            <h2 className="dish-price">￥ {price}</h2>
+          </Col>
+          <div className="operation-group">
+            <Button type="ghost"><Icon type="edit"/></Button>
+            <Button type="ghost" className="right-button"><Icon type="delete"/></Button>
+          </div>
+        </Row>
       </div>
     ));
   }
 }
-export default DragSource(dragType, dragSpec, dragCollect)(DropTarget(dropType,dropSpec,dropCollect)(Card))
+export default DragSource(dragType, dragSpec, dragCollect)(DropTarget(dropType, dropSpec, dropCollect)(Card))
