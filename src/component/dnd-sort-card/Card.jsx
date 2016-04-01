@@ -59,9 +59,8 @@ function dropCollect(connect, monitor) {
 
 class Card extends React.Component {
   render() {
-    const {name,normName,price,pic,isDragging,connectDragSource,connectDropTarget} = this.props;
+    const {id,name,normName,price,pic,editDish,deleteDish,isDragging,connectDragSource,connectDropTarget} = this.props;
     const opacity = isDragging ? 0 : 1;
-    console.log(pic)
     return connectDragSource(connectDropTarget(
       <div className="card" style={{opacity}}>
         <Row type="flex" className="card-content">
@@ -73,8 +72,8 @@ class Card extends React.Component {
             <h2 className="dish-price">￥ {price}</h2>
           </Col>
           <div className="operation-group">
-            <Button type="ghost"><Icon type="edit"/></Button>
-            <Button type="ghost" className="right-button"><Icon type="delete"/></Button>
+            <Button type="ghost" onClick={editDish.bind(this,id)}><Icon type="edit"/></Button>
+            <Button type="ghost" onClick={deleteDish.bind(this,id)} className="right-button"><Icon type="delete"/></Button>
           </div>
         </Row>
       </div>
