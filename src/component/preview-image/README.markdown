@@ -9,23 +9,11 @@ import PreviewImage from 'path/preview-image/PreviewImage.jsx';
 2 例子
 
 ```html
-<PreviewImage imgSourceData={images2}/>
+<PreviewImage src={text}/>
+<PreviewImage src={QRCODEURL + text} width="50px" noImgSize/>
 ```
 
-支持两种格式的图片数据
-
-```js
-const images = [
-  {src: 'http://7xrioc.com1.z0.glb.clouddn.com/img/illustration/photographGirl.jpg'},
-  {src: 'http://7xrioc.com1.z0.glb.clouddn.com/img/illustration/imaginativeChildren.jpg'},
-  {src: 'http://7xrioc.com1.z0.glb.clouddn.com/img/illustration/spaceStart.jpg'}
-];
-const images2 = [
-  'http://7xrioc.com1.z0.glb.clouddn.com/img/illustration/photographGirl.jpg',
-  'http://7xrioc.com1.z0.glb.clouddn.com/img/illustration/photographGirl.jpg',
-  'http://7xrioc.com1.z0.glb.clouddn.com/img/illustration/photographGirl.jpg'
-];
-```
+其实,就像使用正常的img标签一样,只是对它进行了扩展,正常的img属性都可以写.
 
 3 参数
 
@@ -37,15 +25,21 @@ const images2 = [
     <th>说明</th>
   </tr>
   <tr>
-    <td>imgSourceData</td>
-    <td>array,[,,,],[{},{},{}]</td>
-    <td>['http://www.someimgsrc.com']</td>
-    <td>图片预览的数据源</td>
+      <td>src</td>
+      <td>string</td>
+      <td>['http://www.someimgsrc.com']</td>
+      <td>必须.图片预览的资源地址</td>
   </tr>
   <tr>
-    <td>width</td>
+    <td>imgSize</td>
     <td>string</td>
-    <td>100</td>
-    <td>规定缩略图片的大小</td>
+    <td>@50h_70w_1e_1c</td>
+    <td>阿里云图片裁剪参数</td>
+  <tr>
+  <tr>
+    <td>noImgSize</td>
+    <td></td>
+    <td></td>
+    <td>如果不需要图片裁剪,添加noImgSize标记即可</td>
   </tr>
 </table>

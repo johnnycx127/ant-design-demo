@@ -1,51 +1,53 @@
 .preview-image {
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none;
-  .thumbnail-wrap {
-    img {
-      margin: 5px;
-      cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    .thumbnail-wrap {
+        img {
+            cursor: pointer;
+        }
     }
-  }
-  .preview-wrap {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 999;
-    .preview-mask {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, .5);
+    .preview-wrap {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 999;
+        .preview-mask {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, .5);
+        }
+        .preview-content {
+            position: absolute;
+            .preview-content-icon-close {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                font-size: 30px;
+                color: #ccc;
+                padding: 5px;
+                line-height: 1;
+                cursor: pointer;
+            }
+            .preview-content-icon-close:hover {
+                color: #d24445;
+            }
+            .preview-overlay {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                cursor: move;
+            }
+        }
     }
-    .preview-content {
-      position: absolute;
-      .preview-content-icon-close {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        font-size: 30px;
-        color: #ccc;
-        padding: 5px;
-        line-height: 1;
-        cursor: pointer;
-      }
-      .preview-content-icon-close:hover {
-        color: #d24445;
-      }
-      .preview-window {
-        cursor: move;
-      }
-    }
-
-  }
-
 }
