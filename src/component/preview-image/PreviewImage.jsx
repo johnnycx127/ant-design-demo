@@ -23,24 +23,24 @@ class PreviewImage extends React.Component {
 
   componentDidMount = () => {
     let _this = this;
-    var moveable = false;
-    var docMouseMoveEvent = document.onmousemove;
-    var docMouseUpEvent = document.onmouseup;
+    let moveable = false;
+    let docMouseMoveEvent = document.onmousemove;
+    let docMouseUpEvent = document.onmouseup;
     let previewContent = _this.refs.previewContent; /*用于绑定事件*/
     let $previewContent = $('#previewContent'); /*用于获取dom属性值*/
 
-    previewContent.onmousedown = function() {
-      let moveable = true;
-      let evt = getEvent();
+    previewContent.onmousedown = function(e) {
+      moveable = true;
+      let evt = getEvent(e);
       let moveX = evt.clientX;
       let moveY = evt.clientY;
       let moveTop = parseInt($previewContent[0].offsetTop);
       let moveLeft = parseInt($previewContent[0].offsetLeft);
       let iWidth = document.documentElement.clientWidth;
       let iHeight = document.documentElement.clientHeight;
-      document.onmousemove = function() {
+      document.onmousemove = function(e) {
         if (moveable){
-          let evt = getEvent();
+          let evt = getEvent(e);
           let x = moveLeft + evt.clientX - moveX;
           let y = moveTop + evt.clientY - moveY;
           if ( x > 0 &&( x + $previewContent[0].offsetWidth < iWidth) && y > 0 && (y + $previewContent[0].offsetHeight < iHeight) ){
@@ -49,18 +49,17 @@ class PreviewImage extends React.Component {
           }
         }
       };
-      document.onmouseup = function (){
+      document.onmouseup = function (e){
         if (moveable) {
           document.onmousemove = docMouseMoveEvent;
           document.onmouseup = docMouseUpEvent;
           moveable = false;
-          console.log('结束了');
         }
       };
     };
     //获得事件Event对象，用于兼容IE和FireFox
-    function getEvent() {
-      return window.event || arguments.callee.caller.arguments[0];
+    function getEvent(e) {
+      return e||window.event;
     }
   };
 
