@@ -76,14 +76,14 @@ class PreviewImage extends React.Component {
             showPreviewImage: true,
             previewWidth: preImgWidth,
             top: 300,
-            left: (clientWidth - preImgWidth) / 2
+            left: (clientWidth - preImgWidth) / 2,
         });
     };
 
     handleClosePreview = () => {
         this.setState({
             showPreviewImage: false,
-
+            rotationDeg: 0,
         });
     };
 
@@ -91,14 +91,12 @@ class PreviewImage extends React.Component {
         this.setState({
           rotationDeg: this.state.rotationDeg - 90,
         });
-      console.log(this.state.rotationDeg);
     };
 
     handleRotateRightPreview = () => {
         this.setState({
           rotationDeg: this.state.rotationDeg + 90,
         });
-      console.log(this.state.rotationDeg);
     };
 
     render() {
