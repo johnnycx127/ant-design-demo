@@ -11,6 +11,9 @@ class PreviewImage extends React.Component {
         left: 0,
         mouseX: 0,
         mouseY: 0,
+        rotationDeg: 0,
+        rotationLeft: false,
+        rotationRight: false,
     };
 
     static defaultProps = {
@@ -80,7 +83,22 @@ class PreviewImage extends React.Component {
     handleClosePreview = () => {
         this.setState({
             showPreviewImage: false,
+
         });
+    };
+
+    handleRotateLeftPreview = () => {
+        this.setState({
+          rotationDeg: this.state.rotationDeg - 90,
+        });
+      console.log(this.state.rotationDeg);
+    };
+
+    handleRotateRightPreview = () => {
+        this.setState({
+          rotationDeg: this.state.rotationDeg + 90,
+        });
+      console.log(this.state.rotationDeg);
     };
 
     render() {
@@ -96,22 +114,42 @@ class PreviewImage extends React.Component {
                 onClick={this.handleShowPreview}
             />
         );
+        let previewContentStyle = {
+          top: this.state.top,
+          left: this.state.left,
+
+        };
+        let previewImageWrapStyle = {
+          transform:'rotate('+this.state.rotationDeg+'deg)',
+          '-ms-transform':'rotate('+this.state.rotationDeg+'deg)',
+          '-moz-transform': 'rotate('+this.state.rotationDeg+'deg)',
+          '-webkit-transform': 'rotate('+this.state.rotationDeg+'deg)',
+          '-o-transform': 'rotate('+this.state.rotationDeg+'deg)',
+        };
         return (
             <div className="preview-image">
                 <div className="thumbnail-wrap">{img}</div>
                 <div className="preview-wrap" style={{display: this.state.showPreviewImage ? 'block': 'none'}}>
                     <div className="preview-mask" onClick={this.handleClosePreview}></div>
                     <div
-                        className="preview-content"
-                        style={{top: this.state.top,left: this.state.left}}
+                        className='preview-content'
+                        style={previewContentStyle}
                         onMouseMove={this.handlePreviewMouseMove}
                         onMouseUp={this.handlePreviewMouseUp}
                         onMouseDown={this.handlePreviewMouseDown}
                     >
-                        <img width={this.state.previewWidth} src={previewImgSrc}/>
-                        <div className="preview-overlay"></div>
-                        <div className="preview-content-icon-close" onClick={this.handleClosePreview}>
+                        <div style={previewImageWrapStyle}>
+                          <img src={previewImgSrc}/>
+                          <div className="preview-overlay"></div>
+                        </div>
+                        <div className="preview-icon preview-icon-close" onClick={this.handleClosePreview}>
                             <FAIcon type="fa-times fa-times-circle"/>
+                        </div>
+                        <div className="preview-icon preview-icon-rotation-left" onClick={this.handleRotateLeftPreview}>
+                          <FAIcon type="fa fa-rotate-left"/>
+                        </div>
+                        <div className="preview-icon preview-icon-rotation-right" onClick={this.handleRotateRightPreview}>
+                          <FAIcon type="fa fa-rotate-right"/>
                         </div>
                     </div>
                 </div>

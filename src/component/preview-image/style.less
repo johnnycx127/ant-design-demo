@@ -25,20 +25,36 @@
             bottom: 0;
             background-color: rgba(0, 0, 0, .5);
         }
+        .operation-wrap {
+          position: absolute;
+          border: 1px solid red;
+        }
         .preview-content {
             position: absolute;
-            .preview-content-icon-close {
+            .preview-icon {
                 position: absolute;
-                top: 5px;
-                right: 5px;
                 font-size: 30px;
                 color: #ccc;
                 padding: 5px;
                 line-height: 1;
                 cursor: pointer;
             }
-            .preview-content-icon-close:hover {
-                color: #d24445;
+            .preview-icon:hover {
+              color: #d24445;
+            }
+            .preview-icon-close {
+                top: 5px;
+                right: 5px;
+            }
+            .preview-icon-rotation-left {
+                bottom: 5px;
+                left: 5px;
+                font-size: 26px;
+            }
+            .preview-icon-rotation-right {
+                bottom: 5px;
+                right: 5px;
+                font-size: 26px;
             }
             .preview-overlay {
                 position: absolute;
@@ -48,6 +64,20 @@
                 left: 0;
                 cursor: move;
             }
+        }
+        .preview-rotation-left {
+          transform:rotate(90deg);
+          -ms-transform:rotate(90deg); 	/* IE 9 */
+          -moz-transform:rotate(90deg); 	/* Firefox */
+          -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+          -o-transform:rotate(90deg); 	/* Opera */
+        }
+        .preview-rotation-right {
+          transform:rotate(-90deg);
+          -ms-transform:rotate(-90deg); 	/* IE 9 */
+          -moz-transform:rotate(-90deg); 	/* Firefox */
+          -webkit-transform:rotate(-90deg); /* Safari 和 Chrome */
+          -o-transform:rotate(-90deg); 	/* Opera */
         }
     }
 }

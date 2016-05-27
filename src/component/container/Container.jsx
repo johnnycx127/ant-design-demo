@@ -10,11 +10,12 @@ import PreviewImage from '../preview-image/PreviewImage.jsx';
 const Container = React.createClass({
 
   render() {
+    const imgSrc = 'http://7xrioc.com1.z0.glb.clouddn.com/img/illustration/photographGirl.jpg';
 
     return (
       <div className="admin-container">
         {this.props.children}
-        <PreviewImage src='http://7xrioc.com1.z0.glb.clouddn.com/img/illustration/photographGirl.jpg' width="100px" noImgSize />
+        <PreviewImage src={imgSrc} width="100px" noImgSize />
       </div>
     );
   }
