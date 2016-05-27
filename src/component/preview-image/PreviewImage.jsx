@@ -3,65 +3,65 @@
  */
 import './style.less'
 import React from 'react';
+import findDOMNode from 'react-dom';
 import {Form, Input, Button, message} from 'antd';
 import FAIcon from '../faicon/FAIcon.jsx';
+var $ = require('jquery');
 //定义类 并继承baseComponent
 class PreviewImage extends React.Component {
   // 构造函数
   constructor(props) {
     super(props);
   }
-
-  componentDidMount = () => {
-    document.onmousemove = function MouseMove() {
-      function showLogin() {
-        var loginDiv = document.getElementById("loginDiv");
-        var zhezhao = document.getElementById("zhezhao");
-        var clientx = document.documentElement.clientWidth;
-        var clienty = document.documentElement.clientHeight;
-        var l_margin = (clientx - parseInt(loginDiv.style.width)) / 2;
-        var t_margin = (clienty - parseInt(loginDiv.style.height)-200) / 2
-        loginDiv.style.left = l_margin + "px";
-        loginDiv.style.top = t_margin +"px";
-        loginDiv.style.display = "block";
-        zhezhao.style.display = "block";
-      }
-      function hidLogin() {
-        var loginDiv = document.getElementById("loginDiv");
-        var zhezhao = document.getElementById("zhezhao");
-        loginDiv.style.display = "none";
-        zhezhao.style.display = "none";
-      }
-      function titleMove() {
-        var moveable = true;
-        var loginDiv = document.getElementById("loginDiv");
-        //以下变量提前设置好                        var clientX = window.event.clientX;
-        var clientY = window.event.clientY;
-        var moveTop = parseInt(loginDiv.style.top);
-        var moveLeft = parseInt(loginDiv.style.left);
-        document.onmousemove = function MouseMove() {
-          if (moveable) {
-            var y = moveTop + window.event.clientY - clientY;
-            var x = moveLeft + window.event.clientX - clientX;
-            if (x > 0 && y > 0) {
-              loginDiv.style.top = y + "px";
-              loginDiv.style.left = x + "px";
-            }
-          }
-        }
-        document.onmouseup = function Mouseup() {
-          moveable = false;
-        }
-      }
-
-
-    }
-  };
-
   // 初始化state,替代原getInitialState, 注意前面没有static
   state = {
     showPreviewImage: false,
     scaleImageSrc: '',
+    previewHeight: 0,
+    previewWidth: 0
+  };
+
+  componentDidMount = () => {
+    let _this = this;
+    var moveable = false;
+    var docMouseMoveEvent = document.onmousemove;
+    var docMouseUpEvent = document.onmouseup;
+    let previewContent = _this.refs.previewContent; /*用于绑定事件*/
+    let $previewContent = $('#previewContent'); /*用于获取dom属性值*/
+
+    previewContent.onmousedown = function() {
+      let moveable = true;
+      let evt = getEvent();
+      let moveX = evt.clientX;
+      let moveY = evt.clientY;
+      let moveTop = parseInt($previewContent[0].offsetTop);
+      let moveLeft = parseInt($previewContent[0].offsetLeft);
+      let iWidth = document.documentElement.clientWidth;
+      let iHeight = document.documentElement.clientHeight;
+      document.onmousemove = function() {
+        if (moveable){
+          let evt = getEvent();
+          let x = moveLeft + evt.clientX - moveX;
+          let y = moveTop + evt.clientY - moveY;
+          if ( x > 0 &&( x + $previewContent[0].offsetWidth < iWidth) && y > 0 && (y + $previewContent[0].offsetHeight < iHeight) ){
+            $previewContent[0].style.left = x + "px";
+            $previewContent[0].style.top = y + "px";
+          }
+        }
+      };
+      document.onmouseup = function (){
+        if (moveable) {
+          document.onmousemove = docMouseMoveEvent;
+          document.onmouseup = docMouseUpEvent;
+          moveable = false;
+          console.log('结束了');
+        }
+      };
+    };
+    //获得事件Event对象，用于兼容IE和FireFox
+    function getEvent() {
+      return window.event || arguments.callee.caller.arguments[0];
+    }
   };
 
   //定义属性的默认值
@@ -77,14 +77,38 @@ class PreviewImage extends React.Component {
     imgArr: React.PropTypes.any.isRequired
   };
 
-
   handleShowPreview = (src) => {
     let _this = this;
+
     _this.setState({
       showPreviewImage: true,
       scaleImageSrc: src
     });
+
+    setTimeout(function () {
+      let preContObj = $('#previewContent')
+      let preImgObj = $('#previewImage');
+      let preWinObj = $('#previewWindow');
+      let preImgHeight = preImgObj.height();
+      let preImgWidth = preImgObj.width();
+      let iWidth = document.documentElement.clientWidth;
+      let iHeight = document.documentElement.clientHeight;
+
+      /*设置内容层的位置,居中*/
+      preContObj.css ({
+        top: (iHeight-preImgHeight)/2,
+        left: (iWidth-preImgWidth)/2
+      });
+
+      /*设置视图窗口层样式*/
+      preWinObj.css({
+        height: preImgHeight,
+        width: preImgWidth,
+        backgroundImage: 'url('+src+')'
+      });
+    })
   };
+
   handleClosePreview = () => {
     let _this = this;
     _this.setState({
@@ -95,10 +119,6 @@ class PreviewImage extends React.Component {
   render() {
     const {imgSourceData,width} = this.props;
     const _this = this;
-    //定义缩略图
-    //if (typeof imgArr ==  ) {
-    //
-    //}
 
     const thumbnailList = imgSourceData.map(function (item, index, arr) {
       if ((typeof item) === 'string') {
@@ -113,20 +133,17 @@ class PreviewImage extends React.Component {
     });
     return (
       <div className="preview-image">
-        {/*缩略图*/}
-        <div className="thumbnail-wrap">
+        <div id="prevDemo" className="thumbnail-wrap">
           {thumbnailList}
         </div>
-        {/*弹出层*/}
         <div className="preview-wrap" style={{display: this.state.showPreviewImage ? 'table': 'none'}}>
           <div className="preview-mask" onClick={()=>{this.handleClosePreview()}}></div>
-          <div className="thumbnail-table-cell">
-            <div className="table-cell-content" id="table-cell-content">
-              <div className="preview-img-icon-close" onClick={()=>{this.handleClosePreview()}}>
-                <FAIcon type="fa-times fa-times-circle"/>
-              </div>
-              <img src={this.state.scaleImageSrc} alt="图片预览"/>
+          <div className="preview-content" id="previewContent" ref="previewContent">
+            <div className="preview-content-icon-close" onClick={()=>{this.handleClosePreview()}}>
+              <FAIcon type="fa-times fa-times-circle"/>
             </div>
+            <img style={{display: 'none'}} src={this.state.scaleImageSrc} id="previewImage" ref="previewImage" />
+            <div className="preview-window" id="previewWindow" ref="previewWindow" ></div>
           </div>
         </div>
       </div>

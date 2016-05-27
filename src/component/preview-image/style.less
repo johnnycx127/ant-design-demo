@@ -1,4 +1,8 @@
 .preview-image {
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
   .thumbnail-wrap {
     img {
       margin: 5px;
@@ -14,16 +18,17 @@
     right: 0;
     left: 0;
     z-index: 999;
-    .thumbnail-table-cell {
-      display: table-cell;
-      height: 100%;
-      text-align: center;
-      vertical-align: middle;
+    .preview-mask {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, .5);
     }
-    .table-cell-content {
-      position: relative;
-      display: inline-block;
-      .preview-img-icon-close {
+    .preview-content {
+      position: absolute;
+      .preview-content-icon-close {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -33,17 +38,14 @@
         line-height: 1;
         cursor: pointer;
       }
-      .preview-img-icon-close:hover {
+      .preview-content-icon-close:hover {
         color: #d24445;
       }
+      .preview-window {
+        cursor: move;
+      }
     }
+
   }
-  .preview-mask {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0, .5);
-  }
+
 }
