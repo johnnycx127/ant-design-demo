@@ -22,6 +22,7 @@
     "eslint": "1.10.x",
     "eslint-config-airbnb": "4.0.x",
     "eslint-plugin-react": "3.16.x",
+    "object-assign": "^4.1.0",
     "pre-commit": "1.x"
   },
   "pre-commit": [

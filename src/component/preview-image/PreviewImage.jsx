@@ -1,6 +1,7 @@
 import './style.less'
 import React from 'react';
 import FAIcon from '../faicon/FAIcon.jsx';
+import assign from 'object-assign'
 
 class PreviewImage extends React.Component {
     state = {
@@ -12,8 +13,7 @@ class PreviewImage extends React.Component {
         mouseX: 0,
         mouseY: 0,
         rotationDeg: 0,
-        rotationLeft: false,
-        rotationRight: false,
+        iconStyleIndex: 0
     };
 
     static defaultProps = {
@@ -83,19 +83,31 @@ class PreviewImage extends React.Component {
     handleClosePreview = () => {
         this.setState({
             showPreviewImage: false,
-            rotationDeg: 0,
         });
     };
 
     handleRotateLeftPreview = () => {
+        let iconStyleIndex = this.state.iconStyleIndex;
+        let newIndex = iconStyleIndex - 1;
+        if (newIndex < 0) {
+            newIndex = 3;
+        }
+        console.log(newIndex);
         this.setState({
-          rotationDeg: this.state.rotationDeg - 90,
+            rotationDeg: this.state.rotationDeg + 90,
+            iconStyleIndex: newIndex,
         });
     };
 
     handleRotateRightPreview = () => {
+        let iconStyleIndex = this.state.iconStyleIndex;
+        let newIndex = iconStyleIndex + 1;
+        if (newIndex > 3) {
+            newIndex = 0;
+        }
         this.setState({
-          rotationDeg: this.state.rotationDeg + 90,
+            rotationDeg: this.state.rotationDeg - 90,
+            iconStyleIndex: newIndex,
         });
     };
 
@@ -113,17 +125,45 @@ class PreviewImage extends React.Component {
             />
         );
         let previewContentStyle = {
-          top: this.state.top,
-          left: this.state.left,
-
+            top: this.state.top,
+            left: this.state.left,
+            transform: 'rotate(' + this.state.rotationDeg + 'deg)',
+            'msTransform': 'rotate(' + this.state.rotationDeg + 'deg)',
+            'MozTransform': 'rotate(' + this.state.rotationDeg + 'deg)',
+            'WebkitTransform': 'rotate(' + this.state.rotationDeg + 'deg)',
+            'OTransform': 'rotate(' + this.state.rotationDeg + 'deg)',
         };
-        let previewImageWrapStyle = {
-          transform:'rotate('+this.state.rotationDeg+'deg)',
-          '-ms-transform':'rotate('+this.state.rotationDeg+'deg)',
-          '-moz-transform': 'rotate('+this.state.rotationDeg+'deg)',
-          '-webkit-transform': 'rotate('+this.state.rotationDeg+'deg)',
-          '-o-transform': 'rotate('+this.state.rotationDeg+'deg)',
-        };
+        let rotation = {
+            transform: 'rotate(' + (-this.state.rotationDeg*this.state.iconStyleIndex) + 'deg)',
+            'msTransform': 'rotate(' + (-this.state.rotationDeg*this.state.iconStyleIndex) + 'deg)',
+            'MozTransform': 'rotate(' + (-this.state.rotationDeg*this.state.iconStyleIndex) + 'deg)',
+            'WebkitTransform': 'rotate(' + (-this.state.rotationDeg*this.state.iconStyleIndex) + 'deg)',
+            'OTransform': 'rotate(' + (-this.state.rotationDeg*this.state.iconStyleIndex) + 'deg)',
+        }
+        let rotationStyle = [
+            {
+                iconClose: {top: -40, right: 0},
+                iconRotationRight: {top: -38, right: 39},
+                iconRotationLeft: {top: -38, right: 75}
+            }, {
+                iconClose: {bottom: 0, right: -40},
+                iconRotationRight: {bottom: 39, right: -38},
+                iconRotationLeft: {bottom: 75, right: -38}
+            }, {
+                iconClose: {bottom: 5, left: 5},
+                iconRotationRight: {top: 5, right: 5},
+                iconRotationLeft: {top: 5, left: 5}
+            }, {
+                iconClose: {bottom: 5, right: 5},
+                iconRotationRight: {top: 5, left: 5},
+                iconRotationLeft: {bottom: 5, left: 5}
+            }
+        ];
+        rotationStyle = rotationStyle.map(v =>{
+            v.iconRotationLeft =  assign({}, v.iconRotationLeft,rotation);
+            v.iconRotationRight =  assign({}, v.iconRotationRight,rotation);
+            return v
+        })
         return (
             <div className="preview-image">
                 <div className="thumbnail-wrap">{img}</div>
@@ -136,18 +176,22 @@ class PreviewImage extends React.Component {
                         onMouseUp={this.handlePreviewMouseUp}
                         onMouseDown={this.handlePreviewMouseDown}
                     >
-                        <div style={previewImageWrapStyle}>
-                          <img src={previewImgSrc}/>
-                          <div className="preview-overlay"></div>
-                        </div>
-                        <div className="preview-icon preview-icon-close" onClick={this.handleClosePreview}>
+                        <img src={previewImgSrc}/>
+                        <div className="preview-overlay"></div>
+                        <div className="preview-icon preview-icon-close"
+                             style={rotationStyle[this.state.iconStyleIndex].iconClose}
+                             onClick={this.handleClosePreview}>
                             <FAIcon type="fa-times fa-times-circle"/>
                         </div>
-                        <div className="preview-icon preview-icon-rotation-left" onClick={this.handleRotateLeftPreview}>
-                          <FAIcon type="fa fa-rotate-left"/>
+                        <div className="preview-icon preview-icon-rotation-left"
+                             style={rotationStyle[this.state.iconStyleIndex].iconRotationLeft}
+                             onClick={this.handleRotateLeftPreview}>
+                            <FAIcon type="fa fa-rotate-left"/>
                         </div>
-                        <div className="preview-icon preview-icon-rotation-right" onClick={this.handleRotateRightPreview}>
-                          <FAIcon type="fa fa-rotate-right"/>
+                        <div className="preview-icon preview-icon-rotation-right"
+                             style={rotationStyle[this.state.iconStyleIndex].iconRotationRight}
+                             onClick={this.handleRotateRightPreview}>
+                            <FAIcon type="fa fa-rotate-right"/>
                         </div>
                     </div>
                 </div>
