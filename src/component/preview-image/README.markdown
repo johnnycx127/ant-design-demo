@@ -43,3 +43,7 @@ import PreviewImage from 'path/preview-image/PreviewImage.jsx';
     <td>如果不需要图片裁剪,添加noImgSize标记即可</td>
   </tr>
 </table>
+
+4 不足
+
+由于react中获取dom元素的高宽比较困难,因此,可拖动窗口的居中定位显示,是给的定宽 500px.后续看有没有办法解决.(思路一 采用相对对位,先让元素居中显示,然后控制,top left值.)

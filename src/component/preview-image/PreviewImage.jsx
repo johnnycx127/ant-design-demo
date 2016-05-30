@@ -7,8 +7,8 @@ class PreviewImage extends React.Component {
     state = {
         isMousePressed: false,
         showPreviewImage: false,
-        previewWidth: 0,
-        top: 0,
+        previewWidth: 500,
+        top: 300,
         left: 0,
         mouseX: 0,
         mouseY: 0,
@@ -71,11 +71,9 @@ class PreviewImage extends React.Component {
 
     handleShowPreview = () => {
         let clientWidth = document.documentElement.clientWidth;
-        let preImgWidth = 500;
+        let preImgWidth = this.state.previewWidth;
         this.setState({
             showPreviewImage: true,
-            previewWidth: preImgWidth,
-            top: 300,
             left: (clientWidth - preImgWidth) / 2,
         });
     };
@@ -127,6 +125,7 @@ class PreviewImage extends React.Component {
         let previewContentStyle = {
             top: this.state.top,
             left: this.state.left,
+            transform: "rotate("+this.state.rotationDeg+"deg)"
         };
         return (
             <div className="preview-image">
@@ -140,19 +139,12 @@ class PreviewImage extends React.Component {
                         onMouseUp={this.handlePreviewMouseUp}
                         onMouseDown={this.handlePreviewMouseDown}
                     >
-                        <img src={previewImgSrc}/>
+                        <img className="preview-image" src={previewImgSrc}/>
                         <div className="preview-overlay"></div>
-                        <div className="preview-icon preview-icon-close"
-                             onClick={this.handleClosePreview}>
-                            <FAIcon type="fa-times fa-times-circle"/>
-                        </div>
-                        <div className="preview-icon preview-icon-rotation-left"
-                             onClick={this.handleRotateLeftPreview}>
-                            <FAIcon type="fa fa-rotate-left"/>
-                        </div>
-                        <div className="preview-icon preview-icon-rotation-right"
-                             onClick={this.handleRotateRightPreview}>
-                            <FAIcon type="fa fa-rotate-right"/>
+                        <div className="preview-operation-bar">
+                            <FAIcon type="fa fa-rotate-left" onClick={this.handleRotateLeftPreview} />
+                            <FAIcon type="fa fa-rotate-right" onClick={this.handleRotateRightPreview} />
+                            <FAIcon type="fa fa-times fa-times-circle" onClick={this.handleClosePreview} />
                         </div>
                     </div>
                 </div>

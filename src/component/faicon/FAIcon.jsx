@@ -5,7 +5,7 @@ import React from 'react';
 class FAIcon extends React.Component{
     render() {
         let className = ['fa', this.props.type].join(' ');
-        return <i className={className}></i>;
+        return <i {...this.props} className={className}></i>;
     }
 }
 
